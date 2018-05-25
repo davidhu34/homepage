@@ -73,7 +73,7 @@ export default class Background extends Component {
 
             <ContentLayer z={0} {...contentLayerProps}/>
             <ImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
-            {imageReady? <ImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady}/>: null}
+            <ImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady}/>
         </div>
     }
 }
