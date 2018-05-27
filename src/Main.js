@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import ImageLayer from './ImageLayer'
 import ContentLayer from './ContentLayer'
 
-export default class Background extends Component {
+export default class Main extends Component {
     imageProportion = 3783/3007
     static propTypes = {
     }
@@ -16,7 +16,7 @@ export default class Background extends Component {
     }
     constructor(props) {
         super(props)
-        const buffer = new Image(); // Here is the secret! :)
+        const buffer = new Image();
         buffer.onload = () => this.setState({ imageReady: true });
         buffer.src = 'https://images2.alphacoders.com/294/thumb-1920-29492.jpg';
     }

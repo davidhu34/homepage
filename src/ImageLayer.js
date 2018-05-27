@@ -67,14 +67,14 @@ class ImageLayer extends Component {
 			<Transition visible={imageReady}>
 				<div
 					ref={ ref => { if (imageReady) this.ref = ref }}
-					style={ this.makeBaseStyle(this.props, 'https://images2.alphacoders.com/294/thumb-1920-29492.jpg') }
+					style={ this.makeBaseStyle(this.props, 'bg2.jpg') }
 				>
 				</div>
 			</Transition>
 			<Transition visible={!imageReady}>
 				<div
 					ref={ ref => { if (imageReady) this.ref = ref }}
-					style={ this.makeBaseStyle(this.props, 'bg2.jpg') }
+					style={ this.makeBaseStyle(this.props, 'https://images2.alphacoders.com/294/thumb-1920-29492.jpg') }
 				>
 				</div>
 			</Transition>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Grid, Header, List, Segment } from 'semantic-ui-react'
 
 import { CustomMessage, Navbar } from 'components'
-import Background from './Background'
+import Main from './Main'
 import 'styling/semantic.less'
 
 const App = () => (
@@ -10,7 +10,7 @@ const App = () => (
         width: '100%',
         height: '100%'
 	}}>
-        <Background />
+        <Main />
     </div>
 )
 
