@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Container, Grid, Segment, Divider, Visibility, Sticky, Transition } from 'semantic-ui-react'
 
+import ImageWrap from './ImageWrap'
+
 class ContentLayer extends Component {
     static propTypes = {
     }
@@ -28,8 +30,8 @@ class ContentLayer extends Component {
             >
                 <Container textAlign="center">
 
-
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                     <Visibility onUpdate={(e, calculations) => this.handleNameVisibility(e, calculations)}>
                         <div style={{
                             fontSize: '8rem',
@@ -39,6 +41,8 @@ class ContentLayer extends Component {
                             {'Ming Wei Hu'}
                         </div>
                     </Visibility>
+                    <ImageWrap src={"https://rlv.zcache.com/spider_man_head_icon_classic_round_sticker-r54ba1f8e9adb46e6992b555f7eafb12c_v9wth_8byvr_540.jpg"} />
+
                     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
                     <Grid columns={5} >
@@ -108,7 +112,8 @@ class ContentLayer extends Component {
                     <Transition visible={this.state.nameVisibility.offScreen}>
                         <h1>MING WEI HU</h1>
                     </Transition>
-                    <h2>b01901133@gmail.com</h2>
+                    <h2>contact me</h2>
+                    <h2>Resume</h2>
                 </div>
                 </Container>
             </Grid.Column>

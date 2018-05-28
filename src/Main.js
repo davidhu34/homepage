@@ -5,7 +5,7 @@ import ImageLayer from './ImageLayer'
 import ContentLayer from './ContentLayer'
 
 export default class Main extends Component {
-    imageProportion = 3783/3007
+    imageProportion = 1334/1060//3783/3007
     static propTypes = {
     }
 
@@ -73,7 +73,7 @@ export default class Main extends Component {
 
             <ContentLayer z={0} {...contentLayerProps}/>
             <ImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
-            <ImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady}/>
+            {imageReady? <ImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady}/>: null}
         </div>
     }
 }

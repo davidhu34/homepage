@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom'
 import { Transition } from 'semantic-ui-react'
 
 class ImageLayer extends Component {
-	imageProportion = 3783/3007
+	imageProportion = 1334/1060
 	ref = {}
 	state = {}
 	baseStyle = {
@@ -28,16 +28,17 @@ class ImageLayer extends Component {
 			clipPath: 'circle('+clipR+'px at '+clipRight+'px '+clipTop+'px)'
 		}
 	}
-	maskStyleAttr(fromPercent = 5, toPercent = 20, blur = 10) {
+	maskStyleAttr(scale = 0.2, fromPercent = 25, toPercent = 100, blur = 10) {
 		return {
+			height: (100*scale)+'%',
 			maskImage: '-webkit-linear-gradient(to bottom, rgba(0,0,0,1) '+fromPercent+'%, rgba(0,0,0,0) '+toPercent+'%)',
 			WebkitMaskImage: '-webkit-linear-gradient(top, rgba(0,0,0,1) '+fromPercent+'%, rgba(0,0,0,0) '+toPercent+'%)',
-			filter: 'brightness(80%)blur('+blur+'px)'
+			filter: 'brightness(60%)blur('+blur+'px)'
 		}
 	}
 	wallStyleAttr(blur = 20) {
 		return {
-			filter: 'blur('+blur+'px)'
+			filter: 'brightness(80%)blur('+blur+'px)'
 		}
 	}
 	makeBaseStyle(props, imgUrl) {
@@ -67,14 +68,14 @@ class ImageLayer extends Component {
 			<Transition visible={imageReady}>
 				<div
 					ref={ ref => { if (imageReady) this.ref = ref }}
-					style={ this.makeBaseStyle(this.props, 'bg2.jpg') }
+					style={ this.makeBaseStyle(this.props, 'bg3.jpg') }
 				>
 				</div>
 			</Transition>
 			<Transition visible={!imageReady}>
 				<div
 					ref={ ref => { if (imageReady) this.ref = ref }}
-					style={ this.makeBaseStyle(this.props, 'https://images2.alphacoders.com/294/thumb-1920-29492.jpg') }
+					style={ this.makeBaseStyle(this.props, 'bgs.jpg') }
 				>
 				</div>
 			</Transition>
