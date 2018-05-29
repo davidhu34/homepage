@@ -28,7 +28,7 @@ class ImageWrap extends Component {
 		console.log(this.state)
 		const { width, height, imageReady } = this.props
 
-		return <Visibility onTopVisible={(e, attrs) => this.handlePresense(e, attrs)}>>
+		return <Visibility onTopVisible={(e, attrs) => this.handlePresense(e, attrs)}>
 			<Transition visible={!this.state.imageLoaded}>
 				<div>sadfloewq</div>
 			</Transition>

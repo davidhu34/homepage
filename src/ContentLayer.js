@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Container, Grid, Segment, Divider, Visibility, Sticky, Transition } from 'semantic-ui-react'
-
+import Parallax from 'react-springy-parallax'
 import ImageWrap from './ImageWrap'
 
 class ContentLayer extends Component {
@@ -17,7 +17,7 @@ class ContentLayer extends Component {
     }
 
     render() {
-        const { z, width, height, contentWidth } = this.props
+        const { z, width, height, contentWidth, parallax, handleNameVisibility } = this.props
         console.log(height)
         return <Grid>
             <Grid.Row>
@@ -30,19 +30,30 @@ class ContentLayer extends Component {
             >
                 <Container textAlign="center">
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                    <Visibility onUpdate={(e, calculations) => this.handleNameVisibility(e, calculations)}>
-                        <div style={{
-                            fontSize: '8rem',
-                            textAlign: 'center',
-                            color: '#ffffff',
-                    	}}>
-                            {'Ming Wei Hu'}
-                        </div>
-                    </Visibility>
-                    <ImageWrap src={"https://rlv.zcache.com/spider_man_head_icon_classic_round_sticker-r54ba1f8e9adb46e6992b555f7eafb12c_v9wth_8byvr_540.jpg"} />
 
+                <Parallax.Layer
+                    offset={0}
+                    speed={0.5}
+                    onClick={() => parallax.scrollTo(1)}>
+                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                        <Visibility onUpdate={(e, calculations) => {
+                            handleNameVisibility(e, calculations)
+                            this.handleNameVisibility(e, calculations)
+                        }}>
+                            <div style={{
+                                fontSize: '8rem',
+                                textAlign: 'center',
+                                color: '#ffffff',
+                        	}}>
+                                {'Ming Wei Hu'}
+                            </div>
+                        </Visibility>
+                </Parallax.Layer>
+
+                <Parallax.Layer
+                    offset={1}
+                    speed={-0.1}
+                    onClick={() => parallax.scrollTo(2)}>
                     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
                     <Grid columns={5} >
@@ -66,7 +77,12 @@ class ContentLayer extends Component {
                         </Grid.Column>
                         <Grid.Column />
                     </Grid>
+                </Parallax.Layer>
 
+                <Parallax.Layer
+                    offset={2}
+                    speed={0.5}
+                    onClick={() => parallax.scrollTo(0)}>
                     <br/><br/><br/><br/>
                     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                     <h1>ew_________________________qrqwer</h1><br/><br/><br/><br/>
@@ -92,6 +108,15 @@ class ContentLayer extends Component {
                     <h1>e_________________________   wqrqwer</h1><br/>
                     <h1>ewq_________________________rqwerasdffffffsadfsadfasdfasd</h1><br/>
                     <h1>ewqr_________________________  qwer</h1><br/>
+                </Parallax.Layer>
+
+
+
+
+
+
+
+
                 </Container>
             </Grid.Column>
           <Grid.Column
@@ -110,14 +135,16 @@ class ContentLayer extends Component {
                     }}
                 >
                     <Transition visible={this.state.nameVisibility.offScreen}>
-                        <h1>MING WEI HU</h1>
+                        <h1 onClick={() => parallax.scrollTo(0)}>
+                        MING WEI HU
+                        </h1>
                     </Transition>
                     <h2>contact me</h2>
                     <h2>Resume</h2>
                 </div>
                 </Container>
             </Grid.Column>
-          </Grid.Row>
+            </Grid.Row>
         </Grid>
     }
 }
