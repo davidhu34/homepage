@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import {findDOMNode} from 'react-dom'
 
 import Parallax from 'react-springy-parallax'
 import ImageLayer from './ImageLayer'
@@ -44,23 +45,36 @@ export default class Main extends Component {
             },
         });
     }
+
+    updateParallaxState(e) {
+        const parallax = this.refs.parallax
+        console.log('scroll',parallax);
+        const thisIndex = Math.floor(parallax.current/parallax.space);
+        if (this.state.parallaxIdx != thisIndex)
+            this.setState({ parallaxIdx: thisIndex })
+    }
+
     componentWillMount() {
         this.updateDimensions(null);
     }
     componentDidMount() {
         window.addEventListener("resize",this.updateDimensions.bind(this));
-
+        const parallax = findDOMNode(this.refs.parallax);
+        parallax.addEventListener("scroll",this.updateParallaxState.bind(this));
     }
     componentWillUnmount() {
-        window.removeEventListener("resize", this.updateDimensions.bind(this));
+        window.removeEventListener("resize", this.updateDimensions.bind(this), true);
+        const parallax = findDOMNode(this.refs.parallax);
+        parallax.removeEventListener("scroll",this.updateParallaxState.bind(this));
     }
     handleNameVisibility(e, { calculations }) {
         this.setState({ nameVisibility: calculations })
     }
     render() {
         const { children, leftItems, rightItems } = this.props
-        const { imageLayerProps, contentLayerProps, imageReady } = this.state
-
+        const { imageLayerProps, contentLayerProps, imageReady, parallaxIdx } = this.state
+        const parallax = this.refs.parallax || {}
+        console.log('parallaxIdx',parallaxIdx);
         return <div style={{
             position: 'absolute',
             top: 0,
@@ -76,8 +90,16 @@ export default class Main extends Component {
             <ImageLayer wall z={-1} {...imageLayerProps} imageReady={imageReady}/>
 
             <Parallax ref="parallax" pages={3}>
-                <ContentLayer z={0} {...contentLayerProps} parallax={this.refs.parallax} handleNameVisibility={(e, cal) => this.handleNameVisibility(e, cal)} />
+                <ContentLayer z={0} {...contentLayerProps} parallax={parallax} handleNameVisibility={(e, cal) => this.handleNameVisibility(e, cal)} />
             </Parallax>
+            <SideLayer z={0} {...contentLayerProps}
+                parallax={parallax}
+                isNameVisible={parallaxIdx != 0}
+                scrollHead={() => {
+                    parallax.scrollTo(0)
+                    console.log(parallax)
+                }}
+            />
             <ImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
             {imageReady? <ImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady}/>: null}
 

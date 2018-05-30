@@ -15,11 +15,14 @@ class ContentLayer extends Component {
     handleNameVisibility(e, { calculations }) {
         this.setState({ nameVisibility: calculations })
     }
+        updateParallaxState(e) {
+            console.log('on scroll',e);
+        }
 
     render() {
         const { z, width, height, contentWidth, parallax, handleNameVisibility } = this.props
         console.log(height)
-        return <Grid>
+        return <Grid  onScroll={(e) => this.updateParallaxState(e)} >
             <Grid.Row>
             <Grid.Column
                 style={{
@@ -119,31 +122,7 @@ class ContentLayer extends Component {
 
                 </Container>
             </Grid.Column>
-          <Grid.Column
-                style={{
-                    height: height,
-                    textAlign: 'right',
-                    color: '#ffffff',
-               }}
-            >
-                <Container>
-                <div
-                    style={{
-                        width: '500px',
-                        position:'fixed',
-                        bottom: 100
-                    }}
-                >
-                    <Transition visible={this.state.nameVisibility.offScreen}>
-                        <h1 onClick={() => parallax.scrollTo(0)}>
-                        MING WEI HU
-                        </h1>
-                    </Transition>
-                    <h2>contact me</h2>
-                    <h2>Resume</h2>
-                </div>
-                </Container>
-            </Grid.Column>
+
             </Grid.Row>
         </Grid>
     }

@@ -17,35 +17,27 @@ class SideLayer extends Component {
     }
 
     render() {
-        const { z, width, height, contentWidth, nameVisibility, scrollHead } = this.props
-        console.log(height)
-        return <Grid>
-            <Grid.Row>
-            <Grid.Column
-                style={{
-                    width: contentWidth+'px',
-                    textAlign: 'center',
-                    color: '#ffffff',
-               }}
-            >
-            </Grid.Column>
-          <Grid.Column
+        const { z, width, height, contentWidth, isNameVisible, parallax, scrollHead } = this.props
+        console.log(parallax? parallax.offset:'w')
+        return <Container
                 style={{
                     height: height,
                     textAlign: 'right',
                     color: '#ffffff',
                }}
             >
-                <Container>
                 <div
                     style={{
                         width: '500px',
                         position:'fixed',
+                        right: 0,
                         bottom: 100
                     }}
                 >
-                    <Transition visible={nameVisibility&&nameVisibility.offScreen}>
-                        <h1 onClick={ () => scrollHead() }>
+                    <Transition visible={isNameVisible}>
+                        <h1 onClick={ () => {
+                            parallax.scrollTo(0)
+                        }}>
                             MING WEI HU
                         </h1>
                     </Transition>
@@ -53,9 +45,6 @@ class SideLayer extends Component {
                     <h2>Resume</h2>
                 </div>
                 </Container>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
     }
 }
 export default SideLayer
