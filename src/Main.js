@@ -48,10 +48,10 @@ export default class Main extends Component {
 
     updateParallaxState(e) {
         const parallax = this.refs.parallax
-        console.log('scroll',parallax);
         const thisIndex = Math.floor(parallax.current/parallax.space);
-        if (this.state.parallaxIdx != thisIndex)
+        if (this.state.parallaxIdx != thisIndex) {
             this.setState({ parallaxIdx: thisIndex })
+        }
     }
 
     componentWillMount() {

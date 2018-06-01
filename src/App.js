@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button, Grid, Header, List, Segment } from 'semantic-ui-react'
 
-import { CustomMessage, Navbar } from 'components'
-import Main from './Main'
 import 'styling/semantic.less'
+
+import Main from './Main'
 
 const App = () => (
     <div style={{

@@ -18,7 +18,6 @@ class SideLayer extends Component {
 
     render() {
         const { z, width, height, contentWidth, isNameVisible, parallax, scrollHead } = this.props
-        console.log(parallax? parallax.offset:'w')
         return <Container
                 style={{
                     height: height,
@@ -30,7 +29,7 @@ class SideLayer extends Component {
                     style={{
                         width: '500px',
                         position:'fixed',
-                        right: 0,
+                        right: 100,
                         bottom: 100
                     }}
                 >
