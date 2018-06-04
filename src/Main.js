@@ -6,6 +6,7 @@ import Parallax from 'react-springy-parallax'
 import ImageLayer from './ImageLayer'
 import ContentLayer from './ContentLayer'
 import SideLayer from './SideLayer'
+import HeaderLayer from './HeaderLayer'
 
 export default class Main extends Component {
     imageProportion = 1334/1060//3783/3007
@@ -102,7 +103,8 @@ export default class Main extends Component {
             />
             <ImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
             {imageReady? <ImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady}/>: null}
-
+            <HeaderLayer parallaxIdx={parallaxIdx}>
+            </HeaderLayer>
         </div>
     }
 }
