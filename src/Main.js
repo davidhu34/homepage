@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import {findDOMNode} from 'react-dom'
+import { findDOMNode } from 'react-dom'
 
-import Parallax from 'react-springy-parallax'
+import { Parallax } from 'react-spring'
+import { Button, Header, Icon, Modal, Transition } from 'semantic-ui-react'
+
 import ImageLayer from './ImageLayer'
 import ContentLayer from './ContentLayer'
 import SideLayer from './SideLayer'
 import HeaderLayer from './HeaderLayer'
+import CoverLayer from './CoverLayer'
 
 export default class Main extends Component {
     imageProportion = 1334/1060//3783/3007
@@ -49,7 +52,7 @@ export default class Main extends Component {
 
     updateParallaxState(e) {
         const parallax = this.refs.parallax
-        const thisIndex = Math.floor(parallax.current/parallax.space);
+        const thisIndex = Math.round(parallax.current/parallax.space);
         if (this.state.parallaxIdx != thisIndex) {
             this.setState({ parallaxIdx: thisIndex })
         }
@@ -73,9 +76,10 @@ export default class Main extends Component {
     }
     render() {
         const { children, leftItems, rightItems } = this.props
-        const { imageLayerProps, contentLayerProps, imageReady, parallaxIdx } = this.state
+        const { imageLayerProps, contentLayerProps, imageReady, parallaxIdx, openModal } = this.state
         const parallax = this.refs.parallax || {}
         console.log('parallaxIdx',parallaxIdx);
+
         return <div style={{
             position: 'absolute',
             top: 0,
@@ -90,21 +94,36 @@ export default class Main extends Component {
 
             <ImageLayer wall z={-1} {...imageLayerProps} imageReady={imageReady}/>
 
-            <Parallax ref="parallax" pages={3}>
-                <ContentLayer z={0} {...contentLayerProps} parallax={parallax} handleNameVisibility={(e, cal) => this.handleNameVisibility(e, cal)} />
-            </Parallax>
-            <SideLayer z={0} {...contentLayerProps}
-                parallax={parallax}
-                isNameVisible={parallaxIdx != 0}
-                scrollHead={() => {
-                    parallax.scrollTo(0)
-                    console.log(parallax)
-                }}
-            />
+            <div
+                style={{ filter: openModal? 'blur(20px)': '' }}
+                onClick={ () => this.setState({openModal: true}) }
+            >
+                <Parallax ref="parallax" pages={3}>
+                    <ContentLayer z={0} {...contentLayerProps} parallax={parallax} handleNameVisibility={(e, cal) => this.handleNameVisibility(e, cal)} />
+                </Parallax>
+                <SideLayer z={1} {...contentLayerProps}
+                    parallax={parallax}
+                    isNameVisible={parallaxIdx != 0}
+                    scrollHead={() => {
+                        parallax.scrollTo(0)
+                        console.log(parallax)
+                    }}
+                />
+            </div>
+
             <ImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
-            {imageReady? <ImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady}/>: null}
+
+            <Transition visible={imageReady && !openModal}>
+                <div>
+                    <ImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady} />
+                </div>
+            </Transition>
+
             <HeaderLayer parallaxIdx={parallaxIdx}>
             </HeaderLayer>
+
+            {openModal? <CoverLayer close={ () => this.setState({openModal: false}) } show={openModal}/>: null}
+
         </div>
     }
 }

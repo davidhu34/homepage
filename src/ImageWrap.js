@@ -11,7 +11,7 @@ class ImageWrap extends Component {
 		super(props)
 		this.src = props.src
 	}
-	handlePresense(e, { calculations }) {
+	handlePresense() {
 		console.log('loading')
 		this.setState({ imageLoading: true })
 		const buffer = new Image();
@@ -27,15 +27,15 @@ class ImageWrap extends Component {
 	render() {
 		console.log(this.state)
 		const { width, height, imageReady } = this.props
-
-		return <Visibility onTopVisible={(e, attrs) => this.handlePresense(e, attrs)}>
+		if (!imageReady)  this.handlePresense();
+		return <div>
 			<Transition visible={!this.state.imageLoaded}>
 				<div>sadfloewq</div>
 			</Transition>
 			<Transition visible={this.state.imageLoaded}>
 				<div><img src={this.src}/></div>
 			</Transition>
-		</Visibility>
+		</div>
 	}
 }
 

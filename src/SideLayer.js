@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Container, Grid, Segment, Divider, Visibility, Sticky, Transition } from 'semantic-ui-react'
-import Parallax from 'react-springy-parallax'
+import {Parallax} from 'react-spring'
 import ImageWrap from './ImageWrap'
 
 class SideLayer extends Component {
@@ -20,6 +20,7 @@ class SideLayer extends Component {
         const { z, width, height, contentWidth, isNameVisible, parallax, scrollHead } = this.props
         return <Container
                 style={{
+                    zIndex: z,
                     height: height,
                     textAlign: 'right',
                     color: '#ffffff',
@@ -43,7 +44,7 @@ class SideLayer extends Component {
                     <h2>contact me</h2>
                     <h2>Resume</h2>
                 </div>
-                </Container>
+            </Container>
     }
 }
 export default SideLayer

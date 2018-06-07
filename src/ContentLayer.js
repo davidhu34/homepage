@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Container, Grid, Segment, Divider, Visibility, Sticky, Transition } from 'semantic-ui-react'
-import Parallax from 'react-springy-parallax'
+import {Parallax} from 'react-spring'
 import ImageWrap from './ImageWrap'
 
 class ContentLayer extends Component {
