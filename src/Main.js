@@ -101,7 +101,9 @@ export default class Main extends Component {
                 <Parallax ref="parallax" pages={3}>
                     <ContentLayer z={0} {...contentLayerProps} parallax={parallax} handleNameVisibility={(e, cal) => this.handleNameVisibility(e, cal)} />
                 </Parallax>
-                <SideLayer z={1} {...contentLayerProps}
+                <SideLayer {...contentLayerProps}
+                    z={1}
+                    openModal={openModal}
                     parallax={parallax}
                     isNameVisible={parallaxIdx != 0}
                     scrollHead={() => {
@@ -109,6 +111,8 @@ export default class Main extends Component {
                         console.log(parallax)
                     }}
                 />
+                <HeaderLayer parallaxIdx={parallaxIdx}>
+                </HeaderLayer>
             </div>
 
             <ImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
@@ -119,8 +123,6 @@ export default class Main extends Component {
                 </div>
             </Transition>
 
-            <HeaderLayer parallaxIdx={parallaxIdx}>
-            </HeaderLayer>
 
             {openModal? <CoverLayer close={ () => this.setState({openModal: false}) } show={openModal}/>: null}
 

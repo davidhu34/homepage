@@ -17,7 +17,7 @@ class SideLayer extends Component {
     }
 
     render() {
-        const { z, width, height, contentWidth, isNameVisible, parallax, scrollHead } = this.props
+        const { z, width, height, contentWidth, isNameVisible, parallax, scrollHead, openModal } = this.props
         return <Container
                 style={{
                     zIndex: z,
