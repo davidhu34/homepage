@@ -45,7 +45,7 @@ class HeaderLayer extends Component {
 		return <div style={this.baseStyle}>
 			{
 				_.times( 3,
-					i => <Spring
+					i => <Spring key={i}
 						from={this.initStyle}
 						to={ i == parallaxIdx?
 							this.fullStyle

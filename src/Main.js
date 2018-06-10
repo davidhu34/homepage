@@ -76,7 +76,7 @@ export default class Main extends Component {
     }
     render() {
         const { children, leftItems, rightItems } = this.props
-        const { imageLayerProps, contentLayerProps, imageReady, parallaxIdx, openModal } = this.state
+        const { imageLayerProps, contentLayerProps, imageReady, parallaxIdx, isModalOpen } = this.state
         const parallax = this.refs.parallax || {}
         console.log('parallaxIdx',parallaxIdx);
 
@@ -94,16 +94,14 @@ export default class Main extends Component {
 
             <ImageLayer wall z={-1} {...imageLayerProps} imageReady={imageReady}/>
 
-            <div
-                style={{ filter: openModal? 'blur(20px)': '' }}
-                onClick={ () => this.setState({openModal: true}) }
-            >
+            <div style={{ filter: isModalOpen? 'blur(20px)': '' }}>
                 <Parallax ref="parallax" pages={3}>
                     <ContentLayer z={0} {...contentLayerProps} parallax={parallax} handleNameVisibility={(e, cal) => this.handleNameVisibility(e, cal)} />
                 </Parallax>
                 <SideLayer {...contentLayerProps}
                     z={1}
-                    openModal={openModal}
+                    openModal={ () => this.setState({isModalOpen: true}) }
+                    isModalOpen={isModalOpen}
                     parallax={parallax}
                     isNameVisible={parallaxIdx != 0}
                     scrollHead={() => {
@@ -117,14 +115,14 @@ export default class Main extends Component {
 
             <ImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
 
-            <Transition visible={imageReady && !openModal}>
+            <Transition visible={imageReady && !isModalOpen}>
                 <div>
                     <ImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady} />
                 </div>
             </Transition>
 
 
-            {openModal? <CoverLayer close={ () => this.setState({openModal: false}) } show={openModal}/>: null}
+            {isModalOpen? <CoverLayer close={ () => this.setState({isModalOpen: false}) } show={isModalOpen}/>: null}
 
         </div>
     }
