@@ -15,14 +15,14 @@ class ContentLayer extends Component {
     handleNameVisibility(e, { calculations }) {
         this.setState({ nameVisibility: calculations })
     }
-        updateParallaxState(e) {
-            console.log('on scroll',e);
-        }
+    updateParallaxState(e) {
+        console.log('on scroll',e);
+    }
 
     render() {
-        const { z, width, height, contentWidth, parallax, handleNameVisibility } = this.props
+        const { z, width, height, contentWidth, parallax } = this.props
         console.log(height)
-        return <Grid  onScroll={(e) => this.updateParallaxState(e)} >
+        return <Grid onScroll={(e) => this.updateParallaxState(e)} >
             <Grid.Row>
             <Grid.Column
                 style={{
@@ -39,10 +39,6 @@ class ContentLayer extends Component {
                     speed={0.5}
                     onClick={() => parallax.scrollTo(1)}>
                     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                        <Visibility onUpdate={(e, calculations) => {
-                            handleNameVisibility(e, calculations)
-                            this.handleNameVisibility(e, calculations)
-                        }}>
                             <div style={{
                                 fontSize: '8rem',
                                 textAlign: 'center',
@@ -50,7 +46,6 @@ class ContentLayer extends Component {
                         	}}>
                                 {'Ming Wei Hu'}
                             </div>
-                        </Visibility>
                 </Parallax.Layer>
 
                 <Parallax.Layer
