@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import { Transition } from 'semantic-ui-react'
 
-class ImageLayer extends Component {
+class MobileImageLayer extends Component {
 	imageProportion = 1334/1060
 	ref = {}
 	state = {}
@@ -12,7 +12,6 @@ class ImageLayer extends Component {
 		top: 0,
 		left:0,
 		width: '100%',
-		height: '100%',
 		opacity: 1,
 		color: 'white',
 		textAlign: 'center'
@@ -23,31 +22,38 @@ class ImageLayer extends Component {
 		OBbackgroundSize: 'cover',
 		backgroundSize: 'cover'
 	}
+	bannerCoverStyle = {
+		WebkitBackgroundSize: 'contain',
+		MozBackgroundSize: 'contain',
+		OBbackgroundSize: 'contain',
+		backgroundSize: 'contain'
+	}
+
 	// for head circle
-	clipStyleAttr(clipR, clipTop, clipRight) {
+	clipStyleAttr(width) {
+		const clipR = width/8, clipRight = width*0.75, clipTop = width*0.18
 		return {
 			clipPath: 'circle('+clipR+'px at '+clipRight+'px '+clipTop+'px)'
 		}
 	}
-	maskStyleAttr(scale = 0.2, fromPercent = 25, toPercent = 100, blur = 10) {
+	maskStyleAttr(fromPercent = 70, toPercent = 100, blur = 10) {
 		return {
-			height: (100*scale)+'%',
 			maskImage: '-webkit-linear-gradient(to bottom, rgba(0,0,0,1) '+fromPercent+'%, rgba(0,0,0,0) '+toPercent+'%)',
 			WebkitMaskImage: '-webkit-linear-gradient(top, rgba(0,0,0,1) '+fromPercent+'%, rgba(0,0,0,0) '+toPercent+'%)',
-			filter: 'brightness(60%)blur('+blur+'px)'
+			filter: 'brightness(80%)blur('+blur+'px)'
 		}
 	}
-	wallStyleAttr(blur = 20) {
+	wallStyleAttr(blur = 30) {
 		return {
 			filter: 'brightness(80%)blur('+blur+'px)'
 		}
 	}
 	makeBaseStyle(props, imgUrl) {
-		const { z, clip, mask, wall, clipR, clipTop, clipRight } = props
+		const { z, clip, mask, wall, clipR, clipTop, clipRight, width } = props
 
 		let typeAttr = {}
 		if (clip) {
-			typeAttr = this.clipStyleAttr(clipR, clipTop, clipRight)
+			typeAttr = this.clipStyleAttr(width)
 		} else if (mask) {
 			typeAttr = this.maskStyleAttr()
 		} else if (wall) {
@@ -56,10 +62,11 @@ class ImageLayer extends Component {
 
 		return {
 			...this.baseStyle,
+			height: mask || clip? (width/2)+'px': '100%',
 			zIndex: z,
-			background: 'url('+imgUrl+') no-repeat top right fixed',
+			background: 'url('+imgUrl+') no-repeat top left fixed',
 			...typeAttr,
-			...this.coverStyle
+			...(mask || clip? this.bannerCoverStyle: this.coverStyle)
 		}
 	}
 	render() {
@@ -84,4 +91,4 @@ class ImageLayer extends Component {
 	}
 }
 
-export default ImageLayer
+export default MobileImageLayer

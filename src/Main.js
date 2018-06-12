@@ -6,6 +6,7 @@ import { Parallax } from 'react-spring'
 import { Button, Header, Icon, Modal, Transition, Responsive } from 'semantic-ui-react'
 
 import ImageLayer from './ImageLayer'
+import MobileImageLayer from './MobileImageLayer'
 import ContentLayer from './ContentLayer'
 import SideLayer from './SideLayer'
 import HeaderLayer from './HeaderLayer'
@@ -16,6 +17,7 @@ export default class Main extends Component {
     static propTypes = {
     }
     parallax = null
+    parallaxMobile = null
     state = {
         width: 0,
         height: 0,
@@ -50,8 +52,9 @@ export default class Main extends Component {
         });
     }
 
-    updateParallaxState(e) {
-        const parallax = this.refs.parallax
+    updateParallaxMobileState(e) { this.updateParallaxState(e, true)}
+    updateParallaxState(e, mobile) {
+        const parallax = mobile? this.refs.parallaxMobile: this.refs.parallax
         const thisIndex = Math.round(parallax.current/parallax.space);
 
         console.log('parallaxIdx',thisIndex);
@@ -66,7 +69,9 @@ export default class Main extends Component {
     componentDidMount() {
         window.addEventListener("resize",this.updateDimensions.bind(this))
         this.parallax = findDOMNode(this.refs.parallax)
+        this.parallaxMobile = findDOMNode(this.refs.parallaxMobile)
         if (this.parallax) this.parallax.addEventListener("scroll",this.updateParallaxState.bind(this))
+        if (this.parallaxMobile) this.parallaxMobile.addEventListener("scroll",this.updateParallaxMobileState.bind(this))
     }
     componentWillUnmount() {
         window.removeEventListener("resize", this.updateDimensions.bind(this), true)
@@ -79,6 +84,7 @@ export default class Main extends Component {
         const { children, leftItems, rightItems } = this.props
         const { imageLayerProps, contentLayerProps, imageReady, parallaxIdx, isModalOpen } = this.state
         const parallax = this.refs.parallax || {}
+        const parallaxMobile = this.refs.parallaxMobile || {}
         console.log('parallaxIdx',parallaxIdx);
 
         return <div style={{
@@ -93,7 +99,21 @@ export default class Main extends Component {
             //WebkitBackgroundClip: 'text'
     	}}>
         <Responsive maxWidth={Responsive.onlyComputer.minWidth}>
-            GG
+            <MobileImageLayer wall mobile z={-1} {...imageLayerProps} imageReady={imageReady}/>
+
+            <div style={{ filter: isModalOpen? 'blur(20px)': '' }}>
+                <Parallax ref="parallaxMobile" pages={3}>
+                    <ContentLayer mobile z={0} {...contentLayerProps} parallax={parallaxMobile} />
+                </Parallax>
+            </div>
+
+            <MobileImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
+
+            <Transition visible={imageReady && !isModalOpen}>
+                <div>
+                    <MobileImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady} />
+                </div>
+            </Transition>
         </Responsive>
         <Responsive minWidth={Responsive.onlyComputer.minWidth}>
             <ImageLayer wall z={-1} {...imageLayerProps} imageReady={imageReady}/>

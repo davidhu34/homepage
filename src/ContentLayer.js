@@ -20,13 +20,13 @@ class ContentLayer extends Component {
     }
 
     render() {
-        const { z, width, height, contentWidth, parallax } = this.props
+        const { z, width, height, contentWidth, parallax, mobile } = this.props
         console.log(height)
         return <Grid onScroll={(e) => this.updateParallaxState(e)} >
             <Grid.Row>
             <Grid.Column
                 style={{
-                    width: contentWidth+'px',
+                    width: mobile? '100%': contentWidth+'px',
                     textAlign: 'center',
                     color: '#ffffff',
                }}
@@ -61,13 +61,11 @@ class ContentLayer extends Component {
                                 <h1>CV</h1>
                             </Segment>
                         </Grid.Column>
-                        <Divider vertical></Divider>
                         <Grid.Column>
                             <Segment basic>
                                 <h1>CV</h1>
                             </Segment>
                         </Grid.Column>
-                        <Divider vertical></Divider>
                         <Grid.Column>
                             <Segment basic>
                                 <h1>CV</h1>
