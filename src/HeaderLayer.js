@@ -41,13 +41,13 @@ class HeaderLayer extends Component {
 	}
 	render() {
 		const { parallaxIdx } = this.props
-
+		console.log('header', parallaxIdx)
 		return <div style={this.baseStyle}>
 			{
-				_.times( 3,
+				 _.times( 3,
 					i => <Spring key={i}
 						from={this.initStyle}
-						to={ i == parallaxIdx?
+						to={ i == parallaxIdx || isNaN(parallaxIdx)?
 							this.fullStyle
 							: this.hollowStyle
 						}

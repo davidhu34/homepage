@@ -16,12 +16,10 @@ class ContentLayer extends Component {
         this.setState({ nameVisibility: calculations })
     }
     updateParallaxState(e) {
-        console.log('on scroll',e);
     }
 
     render() {
-        const { z, width, height, contentWidth, parallax, mobile } = this.props
-        console.log(height)
+        const { z, width, height, contentWidth, parallax, scrollParallax, mobile } = this.props
         return <Grid onScroll={(e) => this.updateParallaxState(e)} >
             <Grid.Row>
             <Grid.Column
@@ -37,7 +35,7 @@ class ContentLayer extends Component {
                 <Parallax.Layer
                     offset={0}
                     speed={0.5}
-                    onClick={() => parallax.scrollTo(1)}>
+                    onClick={(e) => scrollParallax(1)}>
                     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                             <div style={{
                                 fontSize: '8rem',
@@ -51,7 +49,7 @@ class ContentLayer extends Component {
                 <Parallax.Layer
                     offset={1}
                     speed={-0.1}
-                    onClick={() => parallax.scrollTo(2)}>
+                    onClick={(e) => scrollParallax(2)}>
                     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
                     <Grid columns={5} >
@@ -78,7 +76,7 @@ class ContentLayer extends Component {
                 <Parallax.Layer
                     offset={2}
                     speed={0.5}
-                    onClick={() => parallax.scrollTo(0)}>
+                    onClick={(e) => scrollParallax(0)}>
                     <br/><br/><br/><br/>
                     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                     <h1>ew_________________________qrqwer</h1><br/><br/><br/><br/>
