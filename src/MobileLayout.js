@@ -6,6 +6,7 @@ import { Parallax } from 'react-spring'
 import { Button, Header, Icon, Modal, Transition, Responsive } from 'semantic-ui-react'
 
 import MobileImageLayer from './MobileImageLayer'
+import MobileBannerLayer from './MobileBannerLayer'
 import ContentLayer from './ContentLayer'
 import CoverLayer from './CoverLayer'
 
@@ -45,7 +46,9 @@ export default class MobileLayout extends Component {
 
             <div style={{ filter: isModalOpen? 'blur(20px)': '' }}>
                 <Parallax ref="parallax" pages={3}>
-                <ContentLayer z={0}
+                <ContentLayer mobile
+                    {...contentLayerProps}
+                    z={0}
                     parallax={parallax}
                     scrollParallax={ (i) => {
 
@@ -56,7 +59,16 @@ export default class MobileLayout extends Component {
             </div>
 
             <MobileImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
-
+            <MobileBannerLayer {...contentLayerProps}
+                z={3}
+                openModal={ openModal }
+                isModalOpen={isModalOpen}
+                parallax={parallax}
+                isNameVisible={Boolean(parallaxIdx)}
+                scrollHead={() => {
+                    parallax.scrollTo(0)
+                }}
+            />
             <Transition visible={imageReady && !isModalOpen}>
                 <div>
                     <MobileImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady} />

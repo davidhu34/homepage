@@ -20,6 +20,7 @@ class ContentLayer extends Component {
 
     render() {
         const { z, width, height, contentWidth, parallax, scrollParallax, mobile } = this.props
+        const space = width/20
         return <Grid onScroll={(e) => this.updateParallaxState(e)} >
             <Grid.Row>
             <Grid.Column
@@ -29,21 +30,42 @@ class ContentLayer extends Component {
                     color: '#ffffff',
                }}
             >
-                <Container textAlign="center">
 
 
                 <Parallax.Layer
                     offset={0}
                     speed={0.5}
-                    onClick={(e) => scrollParallax(1)}>
-                    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                    onClick={(e) => scrollParallax(1)}
+                >
+                    { mobile?
+                        <div>
                             <div style={{
-                                fontSize: '8rem',
-                                textAlign: 'center',
-                                color: '#ffffff',
+                                padding: 0.2*height+'px'
                         	}}>
-                                {'Ming Wei Hu'}
+                            <br/>
                             </div>
+                            <p style={{
+                                padding: height/20+'px',
+                                fontSize: space+'px'
+                        	}}>
+                                contact me
+                            </p>
+                            <p style={{
+                                padding: height/20+'px',
+                                fontSize: space+'px'
+                        	}}>
+                                resume
+                            </p>
+                        </div>
+                    :   <div style={{
+                            fontSize: '8rem',
+                            textAlign: 'center',
+                            color: '#ffffff',
+                    	}}>
+                        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                            {'Ming Wei Hu'}
+                        </div>
+                    }
                 </Parallax.Layer>
 
                 <Parallax.Layer
@@ -111,7 +133,6 @@ class ContentLayer extends Component {
 
 
 
-                </Container>
             </Grid.Column>
 
             </Grid.Row>

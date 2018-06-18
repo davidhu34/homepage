@@ -36,7 +36,7 @@ class MobileImageLayer extends Component {
 			clipPath: 'circle('+clipR+'px at '+clipRight+'px '+clipTop+'px)'
 		}
 	}
-	maskStyleAttr(fromPercent = 70, toPercent = 100, blur = 10) {
+	maskStyleAttr(fromPercent = 60, toPercent = 100, blur = 5) {
 		return {
 			maskImage: '-webkit-linear-gradient(to bottom, rgba(0,0,0,1) '+fromPercent+'%, rgba(0,0,0,0) '+toPercent+'%)',
 			WebkitMaskImage: '-webkit-linear-gradient(top, rgba(0,0,0,1) '+fromPercent+'%, rgba(0,0,0,0) '+toPercent+'%)',
