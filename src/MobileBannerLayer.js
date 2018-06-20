@@ -18,7 +18,7 @@ class MobileBannerLayer extends Component {
 
     render() {
         const { z, width, height, contentWidth, isNameVisible, parallax, scrollHead, isModalOpen, openModal } = this.props
-        console.log(isNameVisible)
+        
         const space = width/20
         return <div
             style={{
@@ -47,17 +47,22 @@ class MobileBannerLayer extends Component {
             </div>
             <Transition visible={isNameVisible}>
                 <span>
-                    <div style={{
-                        padding: space/2+'px',
-                        fontSize: space+'px'
-                    }}
-                        onClick={ () => openModal() }>
+                    <div
+                        style={{
+                            padding: space/2+'px',
+                            fontSize: space+'px'
+                        }}
+                        onClick={ (e) => openModal('CONTACT') }
+                    >
                         contact me
                     </div>
-                    <div style={{
-                        padding: space/2+'px',
-                        fontSize: space+'px'
-                    }}>
+                    <div
+                        style={{
+                            padding: space/2+'px',
+                            fontSize: space+'px'
+                        }}
+                        onClick={ (e) => openModal('RESUME') }
+                    >
                         Resume
                     </div>
                 </span>

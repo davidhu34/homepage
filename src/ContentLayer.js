@@ -35,7 +35,6 @@ class ContentLayer extends Component {
                 <Parallax.Layer
                     offset={0}
                     speed={0.5}
-                    onClick={(e) => scrollParallax(1)}
                 >
                     { mobile?
                         <div>

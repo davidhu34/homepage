@@ -18,7 +18,7 @@ class SideLayer extends Component {
 
     render() {
         const { z, width, height, contentWidth, isNameVisible, parallax, scrollHead, isModalOpen, openModal } = this.props
-        console.log(isNameVisible)
+        
         return <Container
                 style={{
                     zIndex: z,
@@ -42,10 +42,12 @@ class SideLayer extends Component {
                             MING WEI HU
                         </h1>
                     </Transition>
-                    <h2 onClick={ () => openModal() }>
+                    <h2 onClick={ (e) => openModal('CONTACT') }>
                         contact me
                     </h2>
-                    <h2>Resume</h2>
+                    <h2 onClick={ (e) => openModal('RESUME') }>
+                        Resume
+                    </h2>
                 </div>
             </Container>
     }

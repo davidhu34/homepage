@@ -41,7 +41,7 @@ class HeaderLayer extends Component {
 	}
 	render() {
 		const { parallaxIdx } = this.props
-		console.log('header', parallaxIdx)
+		
 		return <div style={this.baseStyle}>
 			{
 				 _.times( 3,

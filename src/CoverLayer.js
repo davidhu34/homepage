@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Container, Transition, Grid, Icon, Item } from 'semantic-ui-react'
 
 import ContactModal from './ContactModal'
+import ResumeModal from './ResumeModal'
 
 class CoverLayer extends Component {
     backgroundStyle = {
@@ -25,24 +26,31 @@ class CoverLayer extends Component {
         zIndex: 91,
     }
     render() {
-        const { show, close } = this.props
+        const { width, show, close, mobile, modal } = this.props
+        const modalToShow = modal == 'CONTACT'? <ContactModal />: <ResumeModal />
+
         return <Transition visible={show}>
             <div style={this.backgroundStyle}>
-                <Grid style={{height:'100%', width: '100%'}} containter={"true"}>
-                    <Grid.Row>
-                        <Grid.Column width={13}>
-                            <div style={ this.contentStyle }>
-                                <ContactModal />
-                			</div>
-                        </Grid.Column>
+                { mobile? <div>
+                        {modalToShow}
+                    </div>
+                : <Grid style={{height:'100%', width: '100%'}}>
+                        <Grid.Row>
+                            <Grid.Column width={13}>
+                                <div style={ this.contentStyle }>
+                                    {modalToShow}
+                    			</div>
+                            </Grid.Column>
 
-                    </Grid.Row>
-                </Grid>
+                        </Grid.Row>
+                    </Grid>
+                }
+
                 <div
                     style={{
                         position: 'fixed',
-                        right: 100,
-                        bottom: 100
+                        right: mobile? width*0.1: 100,
+                        bottom: mobile? width*0.1: 100
                     }}
                 >
                     <h2 onClick={ () => close() }>Back</h2>

@@ -35,7 +35,7 @@ export default class MobileLayout extends Component {
     }
 
     render() {
-        const { imageLayerProps, contentLayerProps, imageReady, isModalOpen, closeModal,openModal, isMobile } = this.props
+        const { width, imageLayerProps, contentLayerProps, imageReady, isModalOpen, closeModal, openModal, modal, isMobile } = this.props
         const { parallaxIdx } = this.state
 
         const parallax = this.refs.parallax || {}
@@ -51,29 +51,27 @@ export default class MobileLayout extends Component {
                     z={0}
                     parallax={parallax}
                     scrollParallax={ (i) => {
-
-                            console.log(parallax)
                         if (parallax.scrollTo) parallax.scrollTo(i)
                     }} />
                 </Parallax>
+                <MobileBannerLayer {...contentLayerProps}
+                    z={3}
+                    openModal={ openModal }
+                    isModalOpen={isModalOpen}
+                    parallax={parallax}
+                    isNameVisible={Boolean(parallaxIdx)}
+                    scrollHead={() => {
+                        parallax.scrollTo(0)
+                    }}
+                />
             </div>
-
-            <MobileImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
-            <MobileBannerLayer {...contentLayerProps}
-                z={3}
-                openModal={ openModal }
-                isModalOpen={isModalOpen}
-                parallax={parallax}
-                isNameVisible={Boolean(parallaxIdx)}
-                scrollHead={() => {
-                    parallax.scrollTo(0)
-                }}
-            />
             <Transition visible={imageReady && !isModalOpen}>
                 <div>
+                    <MobileImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
                     <MobileImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady} />
                 </div>
             </Transition>
+            {isModalOpen? <CoverLayer mobile width={width} modal={ modal } close={ closeModal } show={isModalOpen}/>: null}
 
         </div>
     }

@@ -35,7 +35,7 @@ export default class WideLayout extends Component {
     }
 
     render() {
-        const { imageLayerProps, contentLayerProps, imageReady, isModalOpen, closeModal,openModal, isMobile } = this.props
+        const { width, imageLayerProps, contentLayerProps, imageReady, isModalOpen, closeModal, openModal, modal, isMobile } = this.props
         const { parallaxIdx } = this.state
 
         const parallax = this.refs.parallax || {}
@@ -49,12 +49,12 @@ export default class WideLayout extends Component {
                         {...contentLayerProps}
                         parallax={parallax}
                         scrollParallax={ (i) => {
-                            console.log(parallax)
                             if (parallax.scrollTo) parallax.scrollTo(i)
                         }} />
                 </Parallax>
                 <SideLayer {...contentLayerProps}
                     z={1}
+                    modal={ modal }
                     openModal={ openModal }
                     isModalOpen={isModalOpen}
                     parallax={parallax}
@@ -63,19 +63,19 @@ export default class WideLayout extends Component {
                         parallax.scrollTo(0)
                     }}
                 />
-                {this.isMobile? null: <HeaderLayer parallaxIdx={parallaxIdx} />}
             </div>
 
-            <ImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
 
             <Transition visible={imageReady && !isModalOpen}>
                 <div>
+                    {this.isMobile? null: <HeaderLayer parallaxIdx={parallaxIdx} />}
+                    <ImageLayer mask z={2} {...imageLayerProps} imageReady={imageReady}/>
                     <ImageLayer clip z={3} {...imageLayerProps} imageReady={imageReady} />
                 </div>
             </Transition>
 
 
-            {isModalOpen? <CoverLayer close={ closeModal } show={isModalOpen}/>: null}
+            {isModalOpen? <CoverLayer width={width} close={ closeModal } show={isModalOpen}/>: null}
 
         </div>
     }

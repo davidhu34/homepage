@@ -45,8 +45,8 @@ export default class Main extends Component {
             },
         });
     }
-    updateModal(val) {
-        this.setState({isModalOpen: val})
+    updateModal(val, modal = '') {
+        this.setState({isModalOpen: val, modal: modal})
     }
 
     componentWillMount() {
@@ -66,7 +66,7 @@ export default class Main extends Component {
         const isMobile = width < Responsive.onlyComputer.minWidth
 
         const closeModal = () => this.updateModal(false);
-        const openModal = () => this.updateModal(true);
+        const openModal = (modal) => this.updateModal(true, modal);
 
         return <div style={{
             position: 'absolute',
